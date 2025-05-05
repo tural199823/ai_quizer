@@ -38,6 +38,8 @@ def transcribe_youtube_video(url):
         "transcript":f"{transcript}"
         }
 
+print("salam")
+
 # somedic = transcribe_youtube_video("https://www.youtube.com/watch?v=r4IQopBxzOo")
 # print(somedic["transcript"])
 # print(somedic["filename"])
