@@ -1,0 +1,7 @@
+supabase
+fastapi
+yt-dlp
+whisper
+os
+load_dotenv
+pathlib
