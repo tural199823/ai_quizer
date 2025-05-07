@@ -5,7 +5,7 @@ from pathlib import Path
 import os
 
 def get_supabase_client() -> Client:
-    env_path = Path(__file__).parent / ".env"
+    env_path = Path(r"C:\Users\tural\ai_quizer\backend\.env").parent / ".env"
     load_dotenv(dotenv_path=env_path)
 
     url = os.getenv("SUPABASE_URL")
@@ -24,13 +24,13 @@ def save_to_supabase(data: dict) -> None:
         "transcript": data["transcript"]
     }
 
-    response = supabase.table("transcripts").upsert(to_upsert, on_conflict=["filename"]).execute()
+    response = supabase.table("Transcripts").upsert(to_upsert).execute()
     print("Saved to Supabase:", response)
 
 def get_transcript_data(video_filename: str):
     supabase = get_supabase_client()
 
-    response = supabase.table("transcripts").select("filename, transcript").eq("filename", video_filename).execute()
+    response = supabase.table("Transcripts").select("filename, transcript").eq("filename", video_filename).execute()
 
     if response.data:
         data = response.data[0]
@@ -40,3 +40,13 @@ def get_transcript_data(video_filename: str):
         }
     else:
         raise ValueError(f"No transcript found for filename: {video_filename}")
+
+
+
+# env_path = Path(r"C:\Users\tural\ai_quizer\backend\.env").parent / ".env"
+# load_dotenv(dotenv_path=env_path)
+
+# url = os.getenv("SUPABASE_URL")
+# key = os.getenv("SUPABASE_KEY")
+
+# print(url, key)
