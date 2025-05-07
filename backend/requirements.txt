@@ -3,5 +3,10 @@ fastapi
 yt-dlp
 whisper
 os
-load_dotenv
+dotenv
+requests
 pathlib
+transformers
+ollama
+groq
+
