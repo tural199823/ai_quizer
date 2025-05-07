@@ -27,7 +27,7 @@ def transcribe_youtube_video(url):
 
     filename = os.path.splitext(original_filename)[0] + ".wav"
 
-    model = whisper.load_model("base")
+    model = whisper.load_model("tiny")
     result = model.transcribe(filename)
 
     # Step 4: Return transcript
