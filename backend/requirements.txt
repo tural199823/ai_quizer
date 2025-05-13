@@ -9,4 +9,4 @@ pathlib
 transformers
 ollama
 groq
-
+streamlit
