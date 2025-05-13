@@ -1,3 +1,23 @@
+def get_name_of_file(url):
+    """
+    This function takes a YouTube URL and returns the name of the file that would be downloaded.
+    """
+    import yt_dlp
+    import os
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'extractaudio': True,
+        'audioformat': 'wav',
+        'outtmpl': '%(title)s.%(ext)s',
+    }
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info_dict = ydl.extract_info(url, download=False)
+        original_filename = ydl.prepare_filename(info_dict)
+    filename = os.path.splitext(original_filename)[0] + ".wav"
+    return filename
+
+
 def transcribe_youtube_video(url):
     # 1. Download audio with yt_dlp
     # 2. Convert to WAV or MP3 if needed
@@ -42,3 +62,4 @@ def transcribe_youtube_video(url):
 # somedic = transcribe_youtube_video("https://www.youtube.com/watch?v=r4IQopBxzOo")
 # print(somedic["transcript"])
 # print(somedic["filename"])
+get_name_of_file("https://www.youtube.com/watch?v=r4IQopBxzOo")
