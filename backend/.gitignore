@@ -1,3 +1,4 @@
 .env
 check.py
 queries.py
+__pycache__/
