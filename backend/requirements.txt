@@ -10,3 +10,4 @@ transformers
 ollama
 groq
 streamlit
+streamlit_book
