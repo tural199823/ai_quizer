@@ -5,6 +5,18 @@ from pathlib import Path
 
 
 def build_prompt(transcript):
+    """Generates a prompt for an AI assistant to create an educational quiz based on a provided transcript.
+    The prompt instructs the assistant to:
+    - Analyze the transcript and detect its language.
+    - Generate exactly 8 questions (4 multiple choice and 4 true/false) focused on key concepts and deep understanding.
+    - For each question, include its type, the question text, options (for MCQs), the correct answer, and an explanation.
+    - Ensure questions are clear, concise, and engaging.
+    - Return the quiz as a valid JSON array, with no extra text or formatting.
+    Args:
+      transcript (str): The transcript text to base the quiz on.
+    Returns:
+      str: A formatted prompt string for the AI assistant."""
+    
     return f"""
 You are a smart and engaging educational assistant. Your task is to generate a quiz based on the transcript below to help learners **deeply understand** the content.
 
@@ -15,22 +27,19 @@ Create an engaging, concept-driven quiz with a mix of question types and a bonus
 
 2. Detect the transcript's language and write the quiz in that language.
 
-3. Create exactly 5 questions, based on key concepts, core takeaways, or challenging points.
+3. Create exactly 8 questions, based on key concepts, core takeaways, or challenging points.
 
 4. Include at least:
-   - 1 MCQ (4 options: A–D, one correct answer)
-   - 1 Fill-in-the-blank
-   - 1 True/False
-   - The other 2 can be open-ended or short-answer
-
+   - 4 multiple choice question (4 options: A–D, one correct answer)
+   - 4 True/False
+   
 5. For each question, include:
 
-   - "type" (e.g., mcq, fill-in-the-blank, true-false, short-answer)
+   - "type" (e.g., mcq, true-false)
    - "question"
    - "options" (for MCQ only)
    - "answer"
-   - "explanation" (optional, for MCQ)
-   - "sample_answer" (for bonus/open-ended)
+   - "explanation" 
 
 6. Ensure all questions are:
 
@@ -38,9 +47,6 @@ Create an engaging, concept-driven quiz with a mix of question types and a bonus
    - Engaging and interactive
    - Focused on understanding, not trivia
 
-⭐ Bonus Question (Optional):
-
-   Add one Bonus Question at the end (open-ended or application-based).
 
 ✅ Output Format:
 
@@ -56,9 +62,10 @@ Example:
     "explanation": "Because ..."
   }},
   {{
-    "type": "fill-in-the-blank",
+    "type": "true-false",
     "question": "... is used to ...",
-    "answer": "Some answer"
+    "answer": "Some answer",
+    explanation: "Because ..."
   }}
 ]
 
@@ -68,9 +75,17 @@ Transcript:
 """
 
 
-
-
 def generate_quiz_groq(transcript: str) -> str:
+    """
+    Generates a quiz based on the provided transcript using the Groq API.
+    This function loads environment variables, initializes a Groq client with the API key,
+    and sends a prompt (built from the transcript) to the Groq chat completion endpoint.
+    It returns the generated quiz content from the API response.
+    Args:
+      transcript (str): The transcript text to generate quiz questions from.
+    Returns:
+      str: The generated quiz content as a string.
+    """
     env_path = Path(r"C:\Users\tural\ai_quizer\backend\.env").parent / ".env"
 
     load_dotenv(dotenv_path=env_path)
@@ -88,4 +103,5 @@ def generate_quiz_groq(transcript: str) -> str:
         ],
         model="llama-3.3-70b-versatile",
         )
+    
     return chat_completion.choices[0].message.content
