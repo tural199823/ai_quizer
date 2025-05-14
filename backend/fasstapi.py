@@ -8,6 +8,9 @@ app = FastAPI()
 
 @app.get("/generate-quiz/")
 def generate_quiz_endpoint(url: str = Query(..., description="Youtube video URL")):
+    """
+    Endpoint to generate a quiz from a YouTube video URL by retrieving or transcribing its transcript.
+    """
     try:
         filename = get_name_of_file(url)
         data = get_transcript_data(filename)
