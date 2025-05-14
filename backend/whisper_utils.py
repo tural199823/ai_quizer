@@ -1,7 +1,14 @@
+
 def get_name_of_file(url):
+    """Given a YouTube URL, determines the filename that would be generated if the audio were downloaded as a WAV file using yt_dlp.
+    Args:
+        url (str): The URL of the YouTube video.
+    Returns:
+        str: The expected filename (with .wav extension) for the downloaded audio file.
+    Note:
+        This function does not download the file; it only simulates the filename generation process.
     """
-    This function takes a YouTube URL and returns the name of the file that would be downloaded.
-    """
+    
     import yt_dlp
     import os
     ydl_opts = {
@@ -19,16 +26,22 @@ def get_name_of_file(url):
 
 
 def transcribe_youtube_video(url):
-    # 1. Download audio with yt_dlp
-    # 2. Convert to WAV or MP3 if needed
-    # 3. Run whisper on the file
-    # 4. Return transcript
+    """
+    Downloads the audio from a YouTube video, transcribes it using OpenAI's Whisper model, and returns the transcript.
+    Args:
+        url (str): The URL of the YouTube video to transcribe.
+    Returns:
+        dict: A dictionary containing:
+            - "filename" (str): The path to the downloaded audio file in WAV format.
+            - "transcript" (str): The transcribed text of the video's audio.
+    Raises:
+        Exception: If downloading, conversion, or transcription fails at any step.
+    """
 
     import yt_dlp
     import whisper
     import os
 
-    # Step 1: Download audio with yt_dlp
     ydl_opts = {
         'format': 'bestaudio/best',
         'extractaudio': True,
@@ -50,16 +63,10 @@ def transcribe_youtube_video(url):
     model = whisper.load_model("tiny")
     result = model.transcribe(filename)
 
-    # Step 4: Return transcript
     transcript = result['text']
-
+    os.remove(filename)
+    
     return {
         "filename":f"{filename}", 
         "transcript":f"{transcript}"
         }
-
-
-# somedic = transcribe_youtube_video("https://www.youtube.com/watch?v=r4IQopBxzOo")
-# print(somedic["transcript"])
-# print(somedic["filename"])
-get_name_of_file("https://www.youtube.com/watch?v=r4IQopBxzOo")
