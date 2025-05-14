@@ -1,4 +1,6 @@
 .env
 check.py
 queries.py
-__pycache__/
+__pycache__
+backend/__pycache__
+token_check.py
