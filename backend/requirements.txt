@@ -6,8 +6,4 @@ os
 dotenv
 requests
 pathlib
-transformers
-ollama
 groq
-streamlit
-streamlit_book
