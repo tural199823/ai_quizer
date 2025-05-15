@@ -48,5 +48,5 @@ def get_transcript_data(video_filename: str):
             "transcript": data["transcript"]
         }
     else:
-        raise ValueError(f"No transcript found for filename: {video_filename}")
+        return None
 

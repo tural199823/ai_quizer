@@ -22,7 +22,7 @@ if st.button("Generate Quiz"):
         with st.spinner("Processing..."):
             try:
                 response = requests.get(
-                    "http://localhost:8000/generate-quiz/",
+                    "http://backend:8000/generate-quiz",
                     params={"url": youtube_url},
                     timeout=120
                 )

@@ -1,9 +1,9 @@
 supabase
 fastapi
 yt-dlp
-whisper
-os
+openai-whisper
 dotenv
 requests
 pathlib
 groq
+uvicorn
